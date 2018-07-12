@@ -32,12 +32,13 @@ namespace Permission.Models.Attribute
             // 如果沒有權限，直接寫入回傳結果
             if (!isPermission)
                 filterContext.Result = new JsonResult { Data = "沒有權限", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
+            
             base.OnActionExecuting(filterContext);
         }
 
         private bool ServiceId(List<UserPermission> liUserPermission)
         {
+            // 比對權限
             foreach (UserPermission userPermission in liUserPermission)
             {
                 if (userPermission.Id == Id)

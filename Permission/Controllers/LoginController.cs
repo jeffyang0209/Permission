@@ -33,16 +33,13 @@ namespace Permission.Controllers
             
             HttpContext.GetOwinContext().Authentication.SignIn(claimsIdentity);
             AuthenticationProperties s = new AuthenticationProperties();
-            
-
-            //HttpContext.GetOwinContext().Authentication.
-
 
             return Json(new { result = "OK" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetAuth()
         {
+            // 取得登入使用者資料的方式，此段寫法需再進行封裝
             var Claims = HttpContext.User.Identity.Claims();
             string x = Claims.Where(w => w.Type == "1").First().Value;
             return Json(new { result = "OK" }, JsonRequestBehavior.AllowGet);
@@ -50,14 +47,9 @@ namespace Permission.Controllers
 
         public ActionResult Out()
         {
+            // 登出
             HttpContext.GetOwinContext().Authentication.SignOut();
             return Json(new { result = "OUT" }, JsonRequestBehavior.AllowGet);
-        }
-
-        [Permission(66)]
-        public void KK()
-        {
-
         }
     }
 }
